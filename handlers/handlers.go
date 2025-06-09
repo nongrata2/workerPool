@@ -154,7 +154,7 @@ func (p *Pool) PrintWorkers() {
 	defer p.mu.Unlock()
 
 	if len(p.Workers) == 0 {
-		p.log.Info("No active workers")
+		fmt.Println("Нет активных воркеров")
 		return
 	}
 
@@ -165,21 +165,21 @@ func (p *Pool) PrintWorkers() {
 
 	sort.Ints(ids)
 
-	workerIDsStr := ""
+	fmt.Print("Активные воркеры: ")
 	for _, id := range ids {
-		workerIDsStr += fmt.Sprintf("%d ", id)
+		fmt.Printf("%d ", id)
 	}
-	p.log.Info("Active workers", slog.String("worker_ids", workerIDsStr))
+	fmt.Println()
 }
 
 func PrintHelp() {
 	fmt.Println(`Доступные команды:
-  add [id]         - добавить воркера
+  add              - добавить воркера
   addid [id]       - добавить воркера по ID
   ls               - список воркеров
   remove           - удалить последнего воркера
-  removeid         - удалить по ID
-  process [taskID] - отправить задачу
+  removeid [id]    - удалить по ID
+  process [task]   - отправить задачу
   help             - вывести информацию о командах
   exit             - выход`)
 }
